@@ -9,6 +9,8 @@ using Npgsql;
 using StackExchange.Redis;
 
 
+
+
 namespace Worker
 {
     public class Program
