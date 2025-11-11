@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    environment{
+        IMAGE = "tarun63/vote"
+        DOCKER_REG = "DOCKER_CRED"
+    }
+    stages {
+        /*stage('Checkout') {
+            steps {
+               git branch: 'main', url: 'https://github.com/tarunvalireddy/Voting-App.git'
+            }
+        }
+        */
+        stage('Check Changes'){
+            steps{
+                script{
+                    sh 'git fetch --depth=2 origin main'
+                    def changed = sh(script: "git diff --name-only HEAD~1 HEAD | grep '^vote/' || true ", returnStdout: true).trim()
+                    env.changes = changed ? 'true' : 'false'
+                }
+            }
+            
+        }
+        stage('Build and Push') {
+            when{
+                expression { env.changes == 'true'}
+            }
+                    steps {
+                        dir ('vote'){
+                        script{
+                            docker.withRegistry('',DOCKER_REG){
+                                def image = docker.build("${IMAGE}:${BUILD_NUMBER}")
+                                image.push()
+                            }
+                                
+                            }
+                        }
+                        }
+                    }
+                    }
+                    }
+
