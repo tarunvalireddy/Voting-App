@@ -53,8 +53,7 @@ pipeline {
                     git config --global user.name "tarunvalireddy"
                     git config --global --add safe.directory /var/lib/jenkins/workspace/Voting-App
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/tarun63/result:[a-zA-Z0-9._-]*/tarun63/result:${BUILD_NUMBER}/g" k8s-specifications/result-deployment.yaml
-                    git add k8s-specifications/result-deployment.yaml
+                    sed -i "s#tarun63/result:[a-zA-Z0-9._-]*#tarun63/result:${BUILD_NUMBER}#g" k8s-specifications/result-deployment.yaml                    git add k8s-specifications/result-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
