@@ -41,6 +41,7 @@ pipeline {
                             }
                         }
                         }
+            stage('Update K8s Deployment') {
                 steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
@@ -55,10 +56,10 @@ pipeline {
                 '''
             }
         }
+            }
 
 }
 }
 }
-
 
 
