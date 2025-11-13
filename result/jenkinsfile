@@ -24,7 +24,7 @@ pipeline {
                 }
                 }
         }
-        stage('Build and Push') {
+       /* stage('Build and Push') {
             when{
                 expression {env.changes == 'true'}
             }
@@ -39,7 +39,7 @@ pipeline {
                             }
                         }
                         }
-                    }
+                  /*  }
         stage('Update'){
                  environment {
             GIT_REPO_NAME = "Voting-App"
@@ -52,7 +52,7 @@ pipeline {
                     git config --global user.name "tarunvalireddy"
                     git config --global --add safe.directory /var/lib/jenkins/workspace/Voting-App
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/dockersamples/examplevotingapp_result*/tarun63/result:${BUILD_NUMBER}/g" k8s-specifications/result-deployment.yaml
+                    sed -e "s/dockersamples/examplevotingapp_result*/tarun63/result:${BUILD_NUMBER}/g" k8s-specifications/result-deployment.yaml
                     git add k8s-specifications/result-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
