@@ -41,10 +41,8 @@ pipeline {
                             }
                         }
                         }
+       }
             stage('Update K8s Deployment') {
-                    when {
-        expression { env.changes == 'true' }   // <-- Only run when changes exist
-    }
                 steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
@@ -61,7 +59,7 @@ pipeline {
         }
             }
 
-}
+
 }
 }
 
