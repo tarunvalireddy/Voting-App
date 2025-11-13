@@ -24,7 +24,7 @@ pipeline {
                 }
                 }
         }
-       /* stage('Build and Push') {
+      /* stage('Build and Push') {
             when{
                 expression {env.changes == 'true'}
             }
@@ -39,7 +39,8 @@ pipeline {
                             }
                         }
                         }
-                  /*  }
+                  }
+/*
         stage('Update'){
                  environment {
             GIT_REPO_NAME = "Voting-App"
