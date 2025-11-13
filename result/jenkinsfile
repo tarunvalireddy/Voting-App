@@ -42,7 +42,7 @@ pipeline {
                     }
         stage('Update'){
                  environment {
-            GIT_REPO_NAME = "JAVA-CI-CD"
+            GIT_REPO_NAME = "Voting-App"
             GIT_USER_NAME = "tarunvalireddy"
         }
                  steps {
@@ -52,8 +52,8 @@ pipeline {
                     git config --global user.name "tarunvalireddy"
                     git config --global --add safe.directory /var/lib/jenkins/workspace/Voting-App
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/ultimate-cicd:[a-zA-Z0-9._-]*/ultimate-cicd:${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
-                    git add spring-boot-app-manifests/deployment.yml
+                    sed -i "s/dockersamples/examplevotingapp_result*/tarun63/result:${BUILD_NUMBER}/g" k8s-specifications/result-deployment.yaml
+                    git add k8s-specifications/result-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
