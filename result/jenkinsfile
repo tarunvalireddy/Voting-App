@@ -4,6 +4,8 @@ pipeline {
     environment{
         IMAGE = 'tarun63/result'
         DOCKER_REG = 'DOCKER_CRED'
+        GIT_REPO_NAME = "Voting-App"
+        GIT_USER_NAME = "tarunvalireddy"
     }
 
     stages {
@@ -39,14 +41,7 @@ pipeline {
                             }
                         }
                         }
-                  }
-
-        stage('Update'){
-                 environment {
-            GIT_REPO_NAME = "Voting-App"
-            GIT_USER_NAME = "tarunvalireddy"
-        }
-                 steps {
+                steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config --global user.email "tarunvalireddyy@gmail.com"
@@ -59,7 +54,6 @@ pipeline {
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
             }
-        }
         }
 
 }
