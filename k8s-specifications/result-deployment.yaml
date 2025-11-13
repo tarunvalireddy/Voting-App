@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: tarun63/result:50
+      - image: tarun63/result:51
         name: result
         ports:
         - containerPort: 80
