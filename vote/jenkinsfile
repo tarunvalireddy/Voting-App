@@ -37,6 +37,23 @@ pipeline {
                         }
                         }
                     }
+
+        stage('Update K8s Deployment') {
+                steps {
+            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                sh '''
+                    git config --global user.email "tarunvalireddyy@gmail.com"
+                    git config --global user.name "tarunvalireddy"
+                    git config --global --add safe.directory /var/lib/jenkins/workspace/Voting-App
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s#tarun63/vote:[a-zA-Z0-9._-]*#tarun63/result:${BUILD_NUMBER}#g" k8s-specifications/vote-deployment.yaml           
+                    git add k8s-specifications/vote-deployment.yaml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
+            }
                     }
                     }
 
